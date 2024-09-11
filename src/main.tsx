@@ -1,4 +1,5 @@
-import '@styles/main.scss';
+import '@styles/css-reset.scss';
+import '@styles/tailwind.scss';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';

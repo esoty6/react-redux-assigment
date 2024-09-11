@@ -1,3 +1,5 @@
+import UserTable from 'components/user-table/user-table.component';
+
 export default function App() {
-  return <div className="bg-black">Test</div>;
+  return <UserTable />;
 }
