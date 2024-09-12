@@ -5,19 +5,14 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { User } from '../../types/user.type';
 
-export default function UserTable() {
-  const defaultData: User[] = [
-    {
-      firstName: 'Hello',
-      lastName: 'linsley',
-      birthDate: '1973-01-22',
-      email: 'johndoe@example.com',
-    },
-  ];
+type UsersTableProps = {
+  tableData?: User[];
+};
 
+export default function UsersTable({ tableData }: UsersTableProps) {
   const columnHelper = createColumnHelper<User>();
 
   const defaultColumns = [
@@ -39,7 +34,7 @@ export default function UserTable() {
     }),
   ];
 
-  const [data] = useState(() => [...defaultData]);
+  const data = useMemo(() => tableData || [], [tableData]);
   const [columns] = useState<typeof defaultColumns>(() => [...defaultColumns]);
 
   const table = useReactTable({
@@ -64,8 +59,8 @@ export default function UserTable() {
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
+                    key={header.id}
                     {...{
-                      key: header.id,
                       colSpan: header.colSpan,
                       style: {
                         width: header.getSize(),
@@ -97,8 +92,8 @@ export default function UserTable() {
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell) => (
                   <td
+                    key={cell.id}
                     {...{
-                      key: cell.id,
                       style: {
                         width: cell.column.getSize(),
                       },
